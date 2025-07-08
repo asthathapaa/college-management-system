@@ -70,6 +70,14 @@ This project is a **College Management System** backend API built with **FastAPI
   - Enrollments management
 - pgAdmin GUI showing complete database schemas and tables
 
+## Output Images
+![img3](./img_output_lib/img3.png)
+![img5](./img_output_lib/img5.png)
+![img1](./img_output_lib/img1.png)
+![img2](./img_output_lib/img2.png)
+![img4](./img_output_lib/img4.png)
+
+
 ## Tech Stack
 - **Backend Framework:** FastAPI (Python)  
 - **Database:** PostgreSQL  
