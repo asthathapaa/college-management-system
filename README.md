@@ -32,28 +32,51 @@ This project is a **College Management System** backend API built with **FastAPI
    git clone https://github.com/asthathapaa/college-management-system.git
    cd college-management-system
 
-2. Docker Deployment Instructions
+2. Accessing Services API Documentation:
+   ```bash
+   `http://localhost:8000/docs`
 
-## Start the Docker Containers
+3. pgAdmin Interface:
+   ```bash  
+   `http://localhost:5050`
 
-```bash
-docker-compose up -d --build
-
-3. Access the Services
-
-- **API Documentation:** `http://localhost:8000/docs`  
-- **pgAdmin (PostgreSQL GUI):** `http://localhost:5050`  
-
-### Default pgAdmin Credentials
+4. Default pgAdmin Credentials
 **Email:** `admin@admin.com`  
 **Password:** `admin`  
 
-### Authentication
-1. **Get JWT Token** from `/token` endpoint using:
-   - **Username:** `admin`
-   - **Password:** `admin123`
+5. Authentication
+   1. Get JWT Token from `/token` endpoint using:
+      - **Username:** `admin`
+      - **Password:** `admin123`
 
-2. **Use the token** to access protected endpoints:
-   - `/students/`
-   - `/courses/`
-   - `/enrollment/`
+   2. Use the token to access protected endpoints:
+      - `/students/`
+      - `/courses/`
+      - `/enrollment/`
+
+## Expected Output
+
+- Interactive API documentation with accessible endpoints
+- JWT authentication providing access tokens
+- Full CRUD functionality for:
+  - Students management
+  - Courses management
+  - Enrollments management
+- pgAdmin GUI showing complete database schemas and tables
+
+## Frontend Status
+
+ **Work In Progress (WIP)**  
+- React frontend not included in current submission
+- Current focus: Backend API and Docker containerization
+- Frontend development timeline: Post backend evaluation
+
+## Conclusion
+
+**Project Deliverables:**
+- Robust backend solution for college data management
+- Secure JWT authentication system
+- Containerized deployment using Docker
+- Easy setup and testing environment
+- Comprehensive database management via pgAdmin
+- Well-documented API for seamless integration
