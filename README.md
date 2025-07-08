@@ -54,6 +54,12 @@ This project is a **College Management System** backend API built with **FastAPI
       - `/courses/`
       - `/enrollment/`
 
+
+6. Docker Deployment
+
+   ```bash
+   docker-compose up -d --build
+
 ## Expected Output
 
 - Interactive API documentation with accessible endpoints
@@ -63,6 +69,14 @@ This project is a **College Management System** backend API built with **FastAPI
   - Courses management
   - Enrollments management
 - pgAdmin GUI showing complete database schemas and tables
+
+## Tech Stack
+- **Backend Framework:** FastAPI (Python)  
+- **Database:** PostgreSQL  
+- **ORM:** SQLAlchemy  
+- **Authentication:** JWT  
+- **Containerization:** Docker + Docker Compose  
+- **API Documentation:** Swagger UI  
 
 ## Frontend Status
 
@@ -80,3 +94,6 @@ This project is a **College Management System** backend API built with **FastAPI
 - Easy setup and testing environment
 - Comprehensive database management via pgAdmin
 - Well-documented API for seamless integration
+
+## Author
+Astha Thapa
