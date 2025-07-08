@@ -1,25 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+// App.js
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 function App() {
+  const [students, setStudents] = useState([]);
+  
+  useEffect(() => {
+    const fetchData = async () => {
+      const token = (await axios.post('http://localhost:8000/token', 
+        "username=admin&password=admin123",
+        { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }
+      )).data.access_token;
+      
+      const res = await axios.get('http://localhost:8000/students/', {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      setStudents(res.data);
+    };
+    fetchData();
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>Students</h1>
+      <ul>
+        {students.map(student => (
+          <li key={student.id}>{student.name} - {student.department}</li>
+        ))}
+      </ul>
     </div>
   );
 }
-
-export default App;
