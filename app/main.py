@@ -7,14 +7,17 @@ from datetime import timedelta
 from fastapi.security import OAuth2PasswordRequestForm
 from typing import List
 
+# This line must come BEFORE route definitions
 models.Base.metadata.create_all(bind=engine)
 
+# Initialize FastAPI app
 app = FastAPI(
     title="College Management System API",
     description="API for managing students, courses, and enrollments",
     version="1.0.0"
 )
 
+# Dependency
 def get_db():
     db = SessionLocal()
     try:
@@ -22,22 +25,18 @@ def get_db():
     finally:
         db.close()
 
+# Add your routes here (must be after app initialization)
 @app.post("/token", response_model=schemas.Token)
 async def login_for_access_token(
     form_data: OAuth2PasswordRequestForm = Depends(),
     db: Session = Depends(get_db)
 ):
+    # Your existing login implementation
     user = db.query(models.User).filter(
         models.User.username == form_data.username
     ).first()
     
-    if not user:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Incorrect username or password"
-        )
-    
-    if not verify_password(form_data.password, user.hashed_password):
+    if not user or not verify_password(form_data.password, user.hashed_password):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Incorrect username or password"
@@ -50,9 +49,7 @@ async def login_for_access_token(
     )
     return {"access_token": access_token, "token_type": "bearer"}
 
-@app.post("/students/", 
-         response_model=schemas.Student,
-         status_code=status.HTTP_201_CREATED)
+@app.post("/students/", response_model=schemas.Student, status_code=status.HTTP_201_CREATED)
 def create_student(
     student: schemas.StudentCreate, 
     db: Session = Depends(get_db),
@@ -73,4 +70,3 @@ def read_students(
 ):
     students = db.query(models.Student).offset(skip).limit(limit).all()
     return students
-
