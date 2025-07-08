@@ -165,3 +165,60 @@ def read_courses(
 ):
     courses = db.query(models.Course).offset(skip).limit(limit).all()
     return courses
+
+# Enrollment endpoints
+@app.post("/enrollments/", response_model=schemas.Enrollment, status_code=status.HTTP_201_CREATED)
+def create_enrollment(
+    enrollment: schemas.EnrollmentCreate, 
+    db: Session = Depends(get_db),
+    current_user: schemas.TokenData = Depends(get_current_user)
+):
+    # Check if student exists
+    student = db.query(models.Student).filter(
+        models.Student.id == enrollment.student_id
+    ).first()
+    if not student:
+        raise HTTPException(status_code=404, detail="Student not found")
+    
+    # Check if course exists
+    course = db.query(models.Course).filter(
+        models.Course.id == enrollment.course_id
+    ).first()
+    if not course:
+        raise HTTPException(status_code=404, detail="Course not found")
+    
+    # Check if enrollment already exists
+    db_enrollment = db.query(models.Enrollment).filter(
+        models.Enrollment.student_id == enrollment.student_id,
+        models.Enrollment.course_id == enrollment.course_id,
+        models.Enrollment.semester == enrollment.semester
+    ).first()
+    if db_enrollment:
+        raise HTTPException(status_code=400, detail="Student already enrolled in this course for the semester")
+    
+    db_enrollment = models.Enrollment(**enrollment.dict())
+    db.add(db_enrollment)
+    db.commit()
+    db.refresh(db_enrollment)
+    return db_enrollment
+
+@app.get("/enrollments/", response_model=List[schemas.Enrollment])
+def read_enrollments(
+    skip: int = 0, 
+    limit: int = 100,
+    db: Session = Depends(get_db),
+    current_user: schemas.TokenData = Depends(get_current_user)
+):
+    enrollments = db.query(models.Enrollment).offset(skip).limit(limit).all()
+    return enrollments
+
+@app.get("/students/{student_id}/enrollments", response_model=List[schemas.Enrollment])
+def read_student_enrollments(
+    student_id: int,
+    db: Session = Depends(get_db),
+    current_user: schemas.TokenData = Depends(get_current_user)
+):
+    enrollments = db.query(models.Enrollment).filter(
+        models.Enrollment.student_id == student_id
+    ).all()
+    return enrollments
