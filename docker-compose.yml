@@ -34,3 +34,8 @@ services:
 
 volumes:
   postgres_data:
+    driver: local
+    driver_opts:
+      type: none
+      device: /var/lib/postgresql/data
+      o: bind
