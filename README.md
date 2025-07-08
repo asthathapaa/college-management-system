@@ -59,6 +59,7 @@ This project is a **College Management System** backend API built with **FastAPI
 
    ```bash
    docker-compose up -d --build
+   docker-compose exec web python seed.py
 
 ## Expected Output
 
