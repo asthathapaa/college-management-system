@@ -16,7 +16,7 @@ if not db.query(User).filter(User.username == "admin").first():
 
 # Create sample students
 students = [
-    {"name": "John Doe", "email": "john@college.edu", "department": "Computer Science"},
+    {"name": "Astha Thapa", "email": "astha@college.edu", "department": "Computer Science"},
     {"name": "Jane Smith", "email": "jane@college.edu", "department": "Mathematics"}
 ]
 
