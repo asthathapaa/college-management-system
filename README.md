@@ -6,6 +6,8 @@
 > **Semester:** Sixth (6th)  
 > **Elective Subject:** Web Services  
 
+<p align="right"><sub><sup>Checkout below for output images.</sup></sub></p>
+
 ## Introduction
 
 This project is a **College Management System** backend API built with **FastAPI**. It provides RESTful endpoints to manage students, courses, and enrollments with secure JWT-based authentication. The project uses **PostgreSQL** as the database, managed with SQLAlchemy ORM. The entire backend and database are containerized with **Docker** and orchestrated using **docker-compose**.
